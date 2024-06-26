@@ -25,15 +25,11 @@ AS $$
 ---- end of month: vd L với day_of_month thì lấy ngày cuối cùng của tháng
 ---- => lưu ý từ này chỉ dùng cho day of month
 ---- thứ tự ưu tiên ngày - năm giảm dần, các thứ tự ưu tiên giảm dần có thể bỏ
--- select 'vd thời gian cụ thể' as type, cron.is_cron_expression_satisfied('* * * * 6 1 *','2024-06-23'::TIMESTAMP) as result
--- union all
--- select 'vd range, list' as type,  cron.is_cron_expression_satisfied('* * * 20-25 5,6,7 * *','2024-06-23'::TIMESTAMP) as result
--- union all
--- select 'vd step value' as type, cron.is_cron_expression_satisfied('* * * */2 5,6,7 * *','2024-06-20'::TIMESTAMP) as result
--- union all
--- select 'vd end of month' as type, cron.is_cron_expression_satisfied('* * * L 5,6,7 * *','2024-06-30'::TIMESTAMP) as result
--- union all
--- select 'vd bỏ qua các giá trị không cần thiết' as type, cron.is_cron_expression_satisfied('* * * L','2024-06-30'::TIMESTAMP) as result;
+-- vd thời gian cụ thể: select cron.is_cron_expression_satisfied('* * * * 6 1 *','2024-06-23'::TIMESTAMP);
+-- vd range, list: select cron.is_cron_expression_satisfied('* * * 20-25 5,6,7 * *','2024-06-23'::TIMESTAMP);
+-- vd step value: select cron.is_cron_expression_satisfied('* * * */2 5,6,7 * *','2024-06-20'::TIMESTAMP);
+-- vd end of month: select cron.is_cron_expression_satisfied('* * * L 5,6,7 * *','2024-06-30'::TIMESTAMP);
+-- vd bỏ qua các giá trị không cần thiết: select cron.is_cron_expression_satisfied('* * * L','2024-06-30'::TIMESTAMP);
 DECLARE
     cron_parts VARCHAR[] = STRING_TO_ARRAY(cron_expression, ' ');
     seconds VARCHAR;
