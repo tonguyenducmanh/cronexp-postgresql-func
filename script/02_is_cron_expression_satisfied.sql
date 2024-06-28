@@ -58,19 +58,19 @@ BEGIN
 
     -- Kiểm tra target_datetime có thỏa mãn cron expression
     RETURN (
-        cron.is_satisfied(seconds, target_second, target_datetime) AND
-        cron.is_satisfied(minutes, target_minute, target_datetime) AND
-        cron.is_satisfied(hours, target_hour, target_datetime) AND
-        cron.is_satisfied(day_of_month, target_day_of_month, target_datetime) AND
-        cron.is_satisfied(month, target_month_array, target_datetime) AND
-        cron.is_satisfied(day_of_week, target_day_of_week, target_datetime) AND
-        cron.is_satisfied(year, target_year, target_datetime)
+        cron.is_cron_value_satisfied(seconds, target_second, target_datetime) AND
+        cron.is_cron_value_satisfied(minutes, target_minute, target_datetime) AND
+        cron.is_cron_value_satisfied(hours, target_hour, target_datetime) AND
+        cron.is_cron_value_satisfied(day_of_month, target_day_of_month, target_datetime) AND
+        cron.is_cron_value_satisfied(month, target_month_array, target_datetime) AND
+        cron.is_cron_value_satisfied(day_of_week, target_day_of_week, target_datetime) AND
+        cron.is_cron_value_satisfied(year, target_year, target_datetime)
     );
 END;
 $$ LANGUAGE plpgsql;
 
-DROP FUNCTION IF EXISTS cron.is_satisfied(cron_value VARCHAR, target_value INT, target_datetime TIMESTAMP);
-CREATE OR REPLACE FUNCTION cron.is_satisfied(cron_value VARCHAR, target_value INT, target_datetime TIMESTAMP)
+DROP FUNCTION IF EXISTS cron.is_cron_value_satisfied(cron_value VARCHAR, target_value INT, target_datetime TIMESTAMP);
+CREATE OR REPLACE FUNCTION cron.is_cron_value_satisfied(cron_value VARCHAR, target_value INT, target_datetime TIMESTAMP)
 RETURNS BOOLEAN
 AS $$
 -- function này hỗ trợ check giá trị đích có phù hợp với biểu thức cron value không
